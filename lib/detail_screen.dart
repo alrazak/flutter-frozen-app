@@ -18,6 +18,14 @@ class _DetailScreenState extends State<DetailScreen> {
   bool isDescriptionExpanded = false;
   bool isAdditionalInfoExpanded = false;
 
+  String? mainImage;
+
+  @override
+  void initState() {
+    super.initState();
+    mainImage = widget.place.imageAsset;
+  }
+
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
@@ -30,7 +38,9 @@ class _DetailScreenState extends State<DetailScreen> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: Image.asset(widget.place.imageAsset),
+                    child: mainImage!.startsWith('http')
+                      ? Image.network(mainImage!)
+                        : Image.asset(mainImage!),
                   ),
                   Positioned(
                     top: 24.0,
@@ -60,11 +70,18 @@ class _DetailScreenState extends State<DetailScreen> {
                   child: ListView(
                     scrollDirection: Axis.horizontal,
                     children: widget.place.imageUrls.map((url) {
-                      return Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Image.network(url),
+                      return GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            mainImage = url;
+                          });
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.network(url),
+                          ),
                         ),
                       );
                     }).toList(),
