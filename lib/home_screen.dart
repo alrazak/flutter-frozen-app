@@ -5,9 +5,19 @@ import 'package:frozen_app/footer/tentang_kami.dart';
 import 'package:frozen_app/footer/kebijakan_privasi.dart';
 import 'package:frozen_app/footer/kritik_saran.dart';
 import 'package:frozen_app/model/data_product.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
+
+  Future<void> _launchUr(String url) async {
+    final Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -401,11 +411,24 @@ class HomeScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        FaIcon(FontAwesomeIcons.instagram, size: 40, color: Colors.white),
+                        InkWell(
+                          onTap: () => _launchUr('https://instagram.com'),
+                          child: const FaIcon(
+                              FontAwesomeIcons.instagram,
+                              size: 40,
+                              color: Colors.white
+                          ),
+                        ),
                         SizedBox(width: 16.0),
-                        FaIcon(FontAwesomeIcons.whatsapp, size: 40, color: Colors.white),
+                        InkWell(
+                          onTap: () => _launchUr('https://wa.me/6281234567890'),
+                          child: FaIcon(
+                              FontAwesomeIcons.whatsapp,
+                              size: 40,
+                              color: Colors.white),
+                        ),
                       ],
-                    )
+                    ),
                   ],
                 ),
               ),
