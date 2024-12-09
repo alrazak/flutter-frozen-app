@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:frozen_app/checkout/checkout_page.dart';
 import 'package:frozen_app/home_screen.dart';
 import 'package:frozen_app/model/data_product.dart';
+import 'package:frozen_app/checkout/checkout_page.dart';
 
 class DetailScreen extends StatefulWidget {
   @override
@@ -19,6 +21,26 @@ class _DetailScreenState extends State<DetailScreen> {
   bool isAdditionalInfoExpanded = false;
 
   String? mainImage;
+
+  void _showAddedToCartPopup(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Berhasil'),
+          content: Text('Produk berhasil ditambahkan ke keranjang.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context); // Tutup popup
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   void initState() {
@@ -169,7 +191,8 @@ class _DetailScreenState extends State<DetailScreen> {
                     Center(
                       child: ElevatedButton.icon(
                         onPressed: () {
-                          // aksi untuk tombol tambah keranjang
+                          // Tampilkan popup saat tombol ditekan
+                          _showAddedToCartPopup(context);
                         },
                         icon: Icon(Icons.shopping_cart),
                         label: Text('Tambah Keranjang'),
@@ -187,7 +210,12 @@ class _DetailScreenState extends State<DetailScreen> {
                     Center(
                       child: ElevatedButton(
                         onPressed: () {
-                          // aksi untuk tombol beli sekarang
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CheckoutPage(),
+                            ),
+                          );
                         },
                         child: Text('Beli Sekarang'),
                         style: ElevatedButton.styleFrom(
