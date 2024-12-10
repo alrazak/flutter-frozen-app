@@ -6,6 +6,7 @@ import 'package:frozen_app/footer/kebijakan_privasi.dart';
 import 'package:frozen_app/footer/kritik_saran.dart';
 import 'package:frozen_app/model/data_product.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:frozen_app/checkout/checkout_page.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -51,6 +52,12 @@ class HomeScreen extends StatelessWidget {
             color: Colors.white,
             onPressed: () {
               print('Shopping cart icon tapped');
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CheckoutPage(),
+                ),
+              );
             },
           ),
         ],
