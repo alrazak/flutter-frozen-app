@@ -55,7 +55,7 @@ class HomeScreen extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => CheckoutPage(),
+                  builder: (context) => CheckoutPage(cartItems: []),
                 ),
               );
             },

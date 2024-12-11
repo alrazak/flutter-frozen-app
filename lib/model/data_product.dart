@@ -5,6 +5,7 @@ class DataProduct {
   String nutritionalContent;
   String imageAsset;
   List<String> imageUrls;
+  int quantity;
 
   DataProduct({
     required this.name,
@@ -13,13 +14,14 @@ class DataProduct {
     required this.nutritionalContent,
     required this.imageAsset,
     required this.imageUrls,
+    this.quantity = 1,
   });
 }
 
 var dataProductList = [
   DataProduct(
     name: 'Kentang (500 gram)',
-    price: 'Rp 35.000',
+    price: 'Rp 35000',
     description: 'Kentang siap masak dengan potongan french fries atau wedges. Sudah dibumbui ringan, sehingga mudah disiapkan untuk camilan atau pendamping steak. Nikmati dengan saus favoritmu!',
     nutritionalContent: 'Kentang mengandung 120 kalori per 100 gram, membuatnya menjadi camilan ringan yang cocok untuk semua usia. Kandungan protein sebesar 2 gram membantu melengkapi kebutuhan harian, sementara lemak sebesar 3 gram memberikan tekstur renyah setelah digoreng. Dengan 22 gram karbohidrat, kentang ini menjadi sumber energi yang baik, dan sodium sebesar 200 mg memberikan rasa gurih yang seimbang.',
     imageAsset: 'assets/images/potato.jpg',
@@ -31,7 +33,7 @@ var dataProductList = [
   ),
   DataProduct(
     name: 'Chikuwa (250 gram)',
-    price: 'Rp 30.000',
+    price: 'Rp 30000',
     description: 'Chikuwa adalah camilan tradisional Jepang berbentuk tabung, terbuat dari adonan ikan yang dihaluskan dan dimasak hingga matang. Memiliki tekstur kenyal dengan rasa gurih. Cocok sebagai pelengkap sup, gorengan, atau hidangan tumis.',
     nutritionalContent: 'Chikuwa mengandung 140 kalori per 100 gram, dengan 12 gram protein yang baik untuk membantu memperbaiki jaringan tubuh. Kandungan lemaknya yang rendah, hanya 2 gram, membuatnya menjadi pilihan camilan sehat. Selain itu, terdapat 19 gram karbohidrat sebagai sumber energi, dan sodium sebanyak 800 mg yang memberikan rasa gurih tanpa memerlukan banyak tambahan bumbu.',
     imageAsset: 'assets/images/chikua.jpg',
@@ -43,7 +45,7 @@ var dataProductList = [
   ),
   DataProduct(
     name: 'Kanzler (300 gram)',
-    price: 'Rp 55.000',
+    price: 'Rp 55000',
     description: 'Kanzler berbahan dasar daging sapi berkualitas dengan bumbu khas Eropa. Memiliki tekstur lembut dan rasa otentik. Varian populer termasuk bratwurst dan cheese sausage. Nikmati dengan dipanggang, digoreng, atau sebagai isian sandwich.',
     nutritionalContent: 'Kanzler memiliki 260 kalori per 100 gram, cocok sebagai pilihan untuk menu utama. Dengan 10 gram protein, sosis ini menjadi sumber protein hewani yang baik. Kandungan lemaknya sebesar 22 gram memberikan rasa gurih yang kaya, sementara kandungan karbohidratnya yang rendah, hanya 4 gram, cocok untuk diet rendah karbohidrat. Sodium sebanyak 700 mg melengkapi cita rasa khasnya.',
     imageAsset: 'assets/images/kanzler.jpg',
@@ -55,7 +57,7 @@ var dataProductList = [
   ),
   DataProduct(
     name: 'Sosis (250 gram)',
-    price: 'Rp 30.000',
+    price: 'Rp 30000',
     description: 'Sosis ayam atau sapi dengan ukuran kecil hingga sedang, praktis untuk sarapan, bekal anak, atau menu masakan. Bisa digoreng, direbus, atau dipanggang sesuai selera.',
     nutritionalContent: 'Sosis mengandung 150 kalori per 100 gram, menjadikannya camilan praktis dengan kalori yang pas. Dengan kandungan protein sebesar 9 gram, sosis ini dapat membantu memenuhi kebutuhan harian. Lemaknya sebesar 11 gram memberikan rasa yang lezat, sedangkan karbohidratnya hanya 4 gram, menjadikannya cocok untuk diet rendah karbohidrat. Sodium sebanyak 450 mg menambahkan rasa yang pas tanpa membuatnya terlalu asin.',
     imageAsset: 'assets/images/sosis.jpg',

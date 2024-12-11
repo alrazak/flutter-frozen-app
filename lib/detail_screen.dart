@@ -213,7 +213,7 @@ class _DetailScreenState extends State<DetailScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => CheckoutPage(),
+                              builder: (context) => CheckoutPage(cartItems: [widget.place]),
                             ),
                           );
                         },
