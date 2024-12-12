@@ -210,6 +210,8 @@ class _DetailScreenState extends State<DetailScreen> {
                     Center(
                       child: ElevatedButton(
                         onPressed: () {
+                          // Set quantity di produk sebelum navigasi
+                          widget.place.quantity = quantity;
                           Navigator.push(
                             context,
                             MaterialPageRoute(

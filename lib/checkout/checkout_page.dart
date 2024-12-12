@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:frozen_app/model/data_product.dart';
 
-class CheckoutPage extends StatelessWidget {
+class CheckoutPage extends StatefulWidget {
   final List<DataProduct> cartItems;
 
   const CheckoutPage({Key? key, required this.cartItems}) : super(key: key);
+
+  @override
+  _CheckoutPageState createState() => _CheckoutPageState();
+}
+
+class _CheckoutPageState extends State<CheckoutPage> {
+  String? selectedPaymentMethod; // Variabel untuk menyimpan metode pembayaran yang dipilih
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +28,9 @@ class CheckoutPage extends StatelessWidget {
             // List Produk di Keranjang
             Expanded(
               child: ListView.builder(
-                itemCount: cartItems.length,
+                itemCount: widget.cartItems.length,
                 itemBuilder: (context, index) {
-                  final item = cartItems[index];
+                  final item = widget.cartItems[index];
                   return Card(
                     margin: const EdgeInsets.symmetric(vertical: 8.0),
                     child: ListTile(
@@ -46,7 +53,7 @@ class CheckoutPage extends StatelessWidget {
             // Rincian Pembayaran
             Text('Rincian Pembayaran', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
             SizedBox(height: 8.0),
-            Text('Total Harga: Rp ${_calculateTotal(cartItems)}', style: TextStyle(fontSize: 16.0)),
+            Text('Total Harga: Rp ${_calculateTotal(widget.cartItems)}', style: TextStyle(fontSize: 16.0)),
 
             SizedBox(height: 24.0),
 
@@ -58,41 +65,74 @@ class CheckoutPage extends StatelessWidget {
                 border: OutlineInputBorder(),
                 labelText: 'Pilih Metode Pembayaran',
               ),
+              value: selectedPaymentMethod,
               items: [
-                DropdownMenuItem(child: Text('Transfer Bank'), value: 'Transfer Bank'),
-                DropdownMenuItem(child: Text('Doku Pay'), value: 'Doku Pay'),
-                DropdownMenuItem(child: Text('OVO'), value: 'OVO'),
+                DropdownMenuItem(child: Text('COD (bayar di tempat)'), value: 'COD (bayar di tempat)'),
+                DropdownMenuItem(child: Text('BCA Virtual Account'), value: 'BCA Virtual Account'),
+                DropdownMenuItem(child: Text('ShopeePay'), value: 'ShopeePay'),
                 DropdownMenuItem(child: Text('GoPay'), value: 'GoPay'),
               ],
-              onChanged: (value) {},
+              onChanged: (value) {
+                setState(() {
+                  selectedPaymentMethod = value;
+                });
+              },
             ),
 
             SizedBox(height: 24.0),
 
             // Tombol Konfirmasi Pembayaran
             ElevatedButton(
+              // Aksi konfirmasi pembayaran
               onPressed: () {
-                // Aksi konfirmasi pembayaran
-                showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    title: Text('Pembayaran Berhasil'),
-                    content: Text('Pembayaran Anda berhasil dilakukan dengan total Rp ${_calculateTotal(cartItems)}'),
-                    actions: <Widget>[
-                      TextButton(
-                        child: Text('OK'),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
+                if (selectedPaymentMethod == null) {
+                  // Jika metode pembayaran belum dipilih, tampilkan popup
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: Text('Peringatan'),
+                      content: Text('Silakan pilih metode pembayaran sebelum melanjutkan.'),
+                      actions: <Widget>[
+                        TextButton(
+                          child: Text('OK'),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
+                    ),
+                  );
+                } else {
+                  // Aksi jika metode pembayaran sudah dipilih
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: Text('Pembayaran Berhasil'),
+                      content: Text(
+                        'Pembayaran Anda berhasil dilakukan dengan total Rp ${_calculateTotal(widget.cartItems)} menggunakan $selectedPaymentMethod.',
                       ),
-                    ],
-                  ),
-                );
+                      actions: <Widget>[
+                        TextButton(
+                          child: Text('OK'),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
+                    ),
+                  );
+                }
               },
-              child: Text('Konfirmasi Pembayaran'),
+              child: Text(
+                'Konfirmasi Pembayaran',
+                style: TextStyle(color: Colors.white),
+              ),
               style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(vertical: 14.0),
-                backgroundColor: Colors.green,
+                minimumSize: Size(double.infinity, 50),
+                backgroundColor: Colors.blue,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.zero,
+                ),
               ),
             ),
           ],
